@@ -21,6 +21,7 @@
             crossorigin="anonymous"></script>
 
     <title>스파르타코딩클럽 | 부트스트랩 연습하기</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 
     <style>
@@ -28,15 +29,13 @@
             font-family: 'Jua', sans-serif;
         }
 
-        .mytitle {
-
-
+        .item-img {
             width: 500px;
             height: 300px;
-            background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8Zeqj9eO2iiDDpB2X8XCdiwi6HcmrO46dOA&usqp=CAU");
-            background-size: cover;
-            background-position: center;
 
+            background-image: url("https://t1.daumcdn.net/liveboard/nts/5bcccfbd33da4865817b9c606b6b852e.JPG");
+            background-position: center;
+            background-size: cover;
         }
 
         .price {
@@ -63,71 +62,73 @@
         .wrap {
             width: 500px;
             margin: auto;
-
-
         }
 
-
+        .rate {
+            color: blue;
+        }
     </style>
 
     <script>
-        function order() {
-            alert('주문이 완료되었습니다!');
-        }
+        $(document).ready(function () {
+            get_rate();
+        });
 
-       window.onload = function q1() {
-            $('#names-q3').empty()
+        function get_rate(){
             $.ajax({
                 type: "GET",
                 url: "http://spartacodingclub.shop/sparta_api/rate",
                 data: {},
-                success: $(document).ready(function(){
-	alert('다 로딩됐다!')
-});
+                success: function (response) {
+                    let now_rate = response['rate'];
+                    $('#now-rate').text(now_rate);
                 }
             })
+        }
+
+        function order() {
+            alert('주문이 완료되었습니다!');
         }
     </script>
 </head>
 
 <body>
 <div class="wrap">
-    <div class="mytitle"></div>
+    <div class="item-img"></div>
     <div class="item-desc">
-
-        <h1>양초를 팝니다.<span class="price">가격:3000원/개</span></h1>
-        <p>이 양초는 사실 특별한 힘을 가지고 있어요. 양초를 켜고 소원을 빌면 짜자쟌 뭐든지 이뤄지게 된답니다. 하나 사가세요! 대나무 향이 아주 좋아요.</p>
-        <p>달러 원 환율: <ul id="names-q3"></p></ul>
+        <h1>양초를 팝니다 <span class="price">가격:3,000원/개</span></h1>
+        <p>이 양초는 사실 특별한 힘을 지니고 있어요!</p>
+        <p class="rate">달러-원 환율: <span id="now-rate">1219.15</span></p>
     </div>
     <div class="item-order">
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text">주문자이름</span>
             </div>
-            <input type="text" class="form-control" aria-label="Default" aria-describedby="basic-addon1">
+            <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
         </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <label class="input-group-text" for="inputGroupSelect01">수량</label>
             </div>
             <select class="custom-select" id="inputGroupSelect01">
-                <option selected>--수량을 선택하세요--</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                <option selected>-- 수량을 선택하세요 --</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
             </select>
         </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text">주소</span>
             </div>
-            <input type="text" class="form-control" aria-label="Default" aria-describedby="basic-addon1">
+            <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
         </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text">전화번호</span>
             </div>
-            <input type="text" class="form-control" aria-label="Default" aria-describedby="basic-addon1">
+            <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
         </div>
         <button type="button" onclick="order()" class="btn btn-primary btn-order">주문하기</button>
     </div>
